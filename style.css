@@ -1,9 +1,46 @@
 :root {
     --primary: #8F3D3A; 
     --accent: #CFAE23;
-    --background: #665C71;
+    --background: #ebebeb;
+    --grey: #666666;
+    --highlight: #d9d9d9;
 }
 
 body {
     background-color: var(--background);
+    font-family: sans-serif;
+}
+
+.main-box {
+    width: 300px;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.highlight {
+    background-color: var(--highlight);
+    border: none;
+}
+
+select {
+    background-color: var(--highlight);
+    border: none;
+    border-radius: 0px;
+    padding: 1em;
+    padding-left: 4em;
+    padding-right: 4em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+input {
+    background-color: var(--highlight);
+    border: none;
+    border-radius: 0px;
+    padding: 1em;
+    padding-left: 4em;
+    padding-right: 4em;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
