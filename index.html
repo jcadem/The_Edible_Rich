@@ -2,23 +2,28 @@
     <head>
         <link rel="stylesheet" href="style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="data.js"></script>
+        <script src="script.js"></script>
     </head>
-    <body>
+    <body onload="populateSelect()">
+        <div class="guillotine"></div>
+        <div class="blade" id="blade"></div>
         <div class="main-box">
-            <hr>
-            <select id="rich-guy">
-                <option>Test</option>
+            <select id="rich-guy" onchange="populateIncome(this.value)">
+                <option value="0">Select a Rich Jerk</option>
             </select>
-            <br>
-            Making <span class="highlight" id="ceo-pay">$xxxxx</span> /YR
-            <br>
+            <br><br>
+            Making <span class="highlight" id="ceo-pay">????</span> /YR
+            <br><br>
             ACCUMULATES YOU ANNUAL SALARY OF
-            <br>
+            <br><br>
             <input type="text" id="your-pay" />
-            <br>
+            <br><br>
             EVERY...
-            <hr>
-            <input type="button" id="calculate" value="CALCULATE"/>
+            <br><br>
+            <div class="highlight" id="interval">?????</div>
+            <br><br>
+            <input class="button" type="button" id="calculate" value="CALCULATE" onclick="calculate()"/>
         </div>
     </body>
 </html>

@@ -1,5 +1,5 @@
 :root {
-    --primary: #8F3D3A; 
+    --blood: #8F3D3A; 
     --accent: #CFAE23;
     --background: #ebebeb;
     --grey: #666666;
@@ -9,38 +9,84 @@
 body {
     background-color: var(--background);
     font-family: sans-serif;
+    perspective: 500px;
 }
 
 .main-box {
+    position: fixed;
     width: 300px;
-    height: 100%;
-    margin: auto;
+    top: 50px;
+    left: 50%;
+    margin-left: -150px;
     text-align: center;
+    background-color: var(--background);
+    padding: 1em;
 }
 
 .highlight {
+    display: inline-block;
     background-color: var(--highlight);
     border: none;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.guillotine {
+    width: 300px;
+    height: 450px;
+    position: fixed;
+    left: 50%;
+    margin-left: -50px;
+    border: 2px solid black;
+    border-bottom: none;
+    transform: rotateY(-25deg);
+}
+
+.blade {
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    width: 290px;
+    height: 35px;
+    margin-left: -43px;
+    background-color: var(--grey);
+    transform: rotateY(-25deg);
+}
+
+.blade.drop {
+	animation: drop 0.8s forwards;	
+    border-bottom: 10px solid var(--blood);
 }
 
 select {
+    width: 100%;
     background-color: var(--highlight);
     border: none;
     border-radius: 0px;
     padding: 1em;
-    padding-left: 4em;
-    padding-right: 4em;
-    margin-top: 2em;
-    margin-bottom: 2em;
+    text-align: center;
 }
 
 input {
+    width: 50%;
     background-color: var(--highlight);
     border: none;
     border-radius: 0px;
-    padding: 1em;
-    padding-left: 4em;
-    padding-right: 4em;
-    margin-top: 2em;
-    margin-bottom: 2em;
+}
+
+.button {
+    padding: 10px;
+}
+
+@keyframes drop {
+    0% {
+        top: 12px;
+    }
+    100% {
+        top: 430px;
+    }
 }
