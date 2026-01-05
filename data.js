@@ -1,10 +1,20 @@
-rich_guys = {
+richGuys = {
     "jerk": {
         "name": "Some Jerk",
-        "income": "10000"
+        "income": "10000000",
     },
     "other-jerk": {
         "name": "Another Jerk",
-        "income": "10000000"
+        "income": "100000000",
     }
 }
+recipes = [
+    {
+        "title": "Billionaire Bolognese",
+        "content": `
+            Noodles, Onion
+            "Meat"
+            Cook
+        `
+    }
+]

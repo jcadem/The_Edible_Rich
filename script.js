@@ -1,3 +1,9 @@
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+});
+
 async function loadJSON(url) {
     try {
         const response = await fetch(url);
@@ -12,35 +18,51 @@ async function loadJSON(url) {
     }
 }
 
+function init() {
+    populateSelect();
+    onSelect($("#rich-guy option:selected").val());
+}
+
 function populateSelect() {
-    for (const key in rich_guys) {
+    for (const key in richGuys) {
         $('#rich-guy').append($('<option>', {
-            text: rich_guys[key]['name'],
-            value: rich_guys[key]['income']
+            text: richGuys[key]['name'],
+            value: richGuys[key]['income']
         }));
     }
 }
 
-function populateIncome(value) {
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumSignificantDigits: 3
-    });
-    console.log(value);
+function onSelect(value) {
     $("#ceo-pay").text(formatter.format(value));
 }
 
 function calculate() {
     $("#blade").addClass("drop");
-    ceo_pay = $("#rich-guy option:selected").val();
-    console.log(ceo_pay);
-    ceo_pay_per_min = ceo_pay / (365*24*60);
-    console.log(ceo_pay_per_min);
-    your_income = $("#your-pay").val();
-    console.log(your_income);
-    required_time = your_income / ceo_pay_per_min;
-    $("#interval").text(required_time + " minutes")
-    console.log("animated")
+    ceoPay = $("#rich-guy option:selected").val();
+    ceoPayPM = ceoPay / (365*24*60);
+    yourPay = $("#your-pay").val();
+    requiredSecs = yourPay / ceoPayPM;
+    result = requiredSecs + " seconds";
+    if (requiredSecs > 3600) {
+        result = (requiredSecs / 3600) + " hours";
+    } else if (requiredSecs > 60) {
+        result = (requiredSecs / 60) + " minutes";
+    }
+    $("#interval").text(result)
+    setTimeout(setRecipe, 600);
+    console.log("Updated");
+}
+
+function setRecipe() {
+    index = Math.floor(Math.random() * recipes.length);
+    content = recipes[index].content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+    $("#recipe-title").text(recipes[index].title);
+    $("#recipe-content").html(content);
+    $("#recipe").fadeIn(800);
+}
+
+function reset() {
+    $("#blade").removeClass("drop");
+    $("#recipe").hide();
+    $("#interval").text("--?--")
 }

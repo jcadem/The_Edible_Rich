@@ -4,13 +4,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="data.js"></script>
         <script src="script.js"></script>
+        <title>The Edible Rich</title>
+        <link rel="icon" href="site.png">
     </head>
-    <body onload="populateSelect()">
+    <body onload="init()">
         <div class="guillotine"></div>
         <div class="blade" id="blade"></div>
         <div class="main-box">
-            <select id="rich-guy" onchange="populateIncome(this.value)">
-                <option value="0">Select a Rich Jerk</option>
+            <select id="rich-guy" onchange="onSelect(this.value)">
             </select>
             <br><br>
             Making <span class="highlight" id="ceo-pay">????</span> /YR
@@ -21,9 +22,16 @@
             <br><br>
             EVERY...
             <br><br>
-            <div class="highlight" id="interval">?????</div>
+            <div class="highlight" id="interval">--?--</div>
             <br><br>
             <input class="button" type="button" id="calculate" value="CALCULATE" onclick="calculate()"/>
+            <input class="small-button" type="button" id="reset" value="RESET" onclick="reset()"/>
+        </div>
+        <div class="bucket"></div>
+        <div id="recipe">
+            <span id="recipe-title"></span>
+            <br>
+            <span id="recipe-content"></span>
         </div>
     </body>
 </html>
