@@ -18,12 +18,23 @@ async function loadJSON(url) {
     }
 }
 
+function moneyToFloat(value) {
+    return parseFloat(value.replace(/[^0-9.]/g, ''));
+}
+
 function init() {
     populateSelect();
-    $("#your-pay").val(50000);
+    $("#your-pay").val("$50,000");
     $("#reset").addClass("inactive");
     onSelect($("#rich-guy option:selected").val());
     $("#reset").hide();
+    var incomeInput = $("#your-pay");
+    incomeInput.on("input", function(evt){
+        var parsed = moneyToFloat(incomeInput.val());
+        if (parsed != NaN) {
+            incomeInput.val(formatter.format(parsed));
+        }
+    });
 }
 
 function populateSelect() {
@@ -41,23 +52,26 @@ function onSelect(value) {
 
 function calculate() {
     $("#blade").addClass("drop");
-    ceoPay = $("#rich-guy option:selected").val();
-    ceoPayPM = ceoPay / (365*24*60);
-    yourPay = $("#your-pay").val();
-    requiredSecs = yourPay / ceoPayPM;
-    result = requiredSecs;
-    units = "seconds";
-    if (requiredSecs > 3600) {
-        result = (requiredSecs / 3600);
+    var ceoPay = $("#rich-guy option:selected").val();
+    var ceoPayPerSecond = ceoPay / (365*24*60*60);
+    var yourPay = moneyToFloat($("#your-pay").val());
+    var requiredSeconds = yourPay / ceoPayPerSecond;
+    var result = requiredSeconds;
+    var units = "seconds";
+    if (requiredSeconds > (3600 * 24)) {
+        result = (requiredSeconds / (3600 * 24));
+        units = "days";
+    } else if (requiredSeconds > 3600) {
+        result = (requiredSeconds / 3600);
         units = "hours";
-    } else if (requiredSecs > 60) {
-        result = (requiredSecs / 60);
-        unit = "minutes";
+    } else if (requiredSeconds > 60) {
+        result = (requiredSeconds / 60);
+        units = "minutes";
     }
-    result = Math.round(result * 100) / 100;
+    var result = Math.round(result * 100) / 100;
     setTimeout(function() {
         $("#interval").text(result)
-        $("#units").text(unit);
+        $("#units").text(units);
     }, 500);
     setTimeout(setRecipe, 800);
     console.log("Updated");
@@ -66,8 +80,8 @@ function calculate() {
 }
 
 function setRecipe() {
-    index = Math.floor(Math.random() * recipes.length);
-    content = recipes[index].content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+    var index = Math.floor(Math.random() * recipes.length);
+    var content = recipes[index].content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
     $("#recipe-title").text(recipes[index].title);
     $("#recipe-content").html(content);
     $("#recipe-container").fadeIn(800);
