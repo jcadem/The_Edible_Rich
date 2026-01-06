@@ -8,7 +8,7 @@
 
 body {
     background-color: var(--background);
-    font-family: sans-serif;
+    font-family: "Fira Code";
 }
 
 .main-container {
@@ -191,3 +191,5 @@ input:hover {
     height: 18;
 }
 
+@media only screen and (max-width: 800px) {
+}
