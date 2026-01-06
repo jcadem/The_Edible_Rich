@@ -4,6 +4,8 @@ const formatter = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 0,
 });
 
+var isReset = false;
+
 async function loadJSON(url) {
     try {
         const response = await fetch(url);
@@ -34,6 +36,7 @@ function init() {
         if (parsed != NaN) {
             incomeInput.val(formatter.format(parsed));
         }
+        reset();
     });
 }
 
@@ -48,9 +51,11 @@ function populateSelect() {
 
 function onSelect(value) {
     $("#ceo-pay").text(formatter.format(value));
+    reset();
 }
 
 function calculate() {
+    isReset = false;
     $("#blade").addClass("drop");
     var ceoPay = $("#rich-guy option:selected").val();
     var ceoPayPerSecond = ceoPay / (365*24*60*60);
@@ -88,10 +93,13 @@ function setRecipe() {
 }
 
 function reset() {
-    $("#calculate").show();
-    $("#reset").hide();
-    $("#blade").removeClass("drop");
-    $("#recipe-container").hide();
-    $("#interval").text("")
-    $("#units").text("")
+    if (isReset == false) {
+        isReset = true;
+        $("#calculate").show();
+        $("#reset").hide();
+        $("#blade").removeClass("drop");
+        $("#recipe-container").hide();
+        $("#interval").text("")
+        $("#units").text("")
+    }
 }

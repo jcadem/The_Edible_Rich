@@ -14,7 +14,7 @@ body {
 .main-container {
     position: relative;
     width: 400px;
-    height: 690;
+    height: 695;
     margin-left: auto;
     margin-right: auto;
     perspective: 500px;
@@ -24,7 +24,7 @@ body {
 .main-box {
     position: fixed;
     width: 280px;
-    top: 120px;
+    top: 125px;
     left: 50%;
     margin-left: -185px;
     text-align: center;
@@ -89,7 +89,23 @@ body {
     margin-right: auto;
     width: 380px;
     height: 130px;
-    transform: rotateY(-5deg);
+}
+
+.result {
+    display: inline-block;
+    color: var(--blood);
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-size: 600%;
+    margin-top: 5px;
+}
+
+.result-units {
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-size: 150%;
 }
 
 select {
@@ -163,23 +179,6 @@ input:hover {
 #recipe-content {
     padding: 5px;
     color: var(--grey);
-}
-
-.result {
-    display: inline-block;
-    color: var(--blood);
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-    font-size: 600%;
-    margin-top: 5px;
-}
-
-.result-units {
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-    font-size: 150%;
 }
 
 .construction {
