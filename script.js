@@ -75,7 +75,7 @@ function reset() {
     $("#calculate").show();
     $("#reset").hide();
     $("#blade").removeClass("drop");
-    $("#recipe").hide();
+    $("#recipe-container").hide();
     $("#interval").text("")
     $("#units").text("")
 }
