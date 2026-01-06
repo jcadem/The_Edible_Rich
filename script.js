@@ -55,9 +55,11 @@ function calculate() {
         unit = "minutes";
     }
     result = Math.round(result * 100) / 100;
-    $("#interval").text(result)
-    $("#units").text(unit);
-    setTimeout(setRecipe, 600);
+    setTimeout(function() {
+        $("#interval").text(result)
+        $("#units").text(unit);
+    }, 500);
+    setTimeout(setRecipe, 800);
     console.log("Updated");
     $("#calculate").hide();
     $("#reset").show();
