@@ -29,7 +29,7 @@ body {
     display: inline-block;
     background-color: var(--highlight);
     border: none;
-    padding: 5px;
+    padding: 8px;
     text-align: center;
     margin-bottom: 8px;
     margin-top: 8px;
@@ -60,15 +60,15 @@ body {
 
 .bucket {
     position: relative;
-    top: 540px;
-    left: 20px;
+    top: 580px;
+    left: 90px;
     margin-left: auto;
     margin-right: auto;
-    width: 265px;
-    height: 35px;
-    border: 2px dashed black;
+    width: 380px;
+    height: 150px;
+    border: 1px dashed black;
     border-top: none;
-    transform: rotateY(-20deg);
+    transform: rotateY(-5deg);
 }
 
 .blade.drop {
@@ -88,9 +88,11 @@ select {
 input {
     width: 50%;
     background-color: var(--highlight);
-    border: none;
+    border: 1px solid var(--highlight);
     border-radius: 0px;
     padding: 10px;
+    transition: all 0.8s;
+    text-align: center;
 }
 
 .text {
@@ -98,7 +100,15 @@ input {
 }
 
 .button {
+    display: inline-block;
+    width: 50%;
     padding: 10px;
+    font-weight: bold;
+}
+
+input:hover {
+    color: var(--blood);
+    border: 1px solid var(--blood);
 }
 
 .small-button {
@@ -106,26 +116,56 @@ input {
     padding: 10px;
 }
 
-#recipe {
+#recipe-container {
     position: absolute;
     top: 50px;
     left: 50%;
-    padding: 10px;
-    border: 1px solid var(--blood);
-    width: 250px;
-    height: 500px;
-    margin-left: -450px;
     text-align: center;
     display: none;
+    width: 250px;
+    margin-left: -450px;
+    
+}
+
+.recipe-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.recipe {
+    padding: 10px;
+    width: 100%;
 }
 
 #recipe-title {
     color: var(--blood);
     font-weight: bold;
+    font-size: 120%;
 }
 
 #recipe-content {
     padding: 5px;
+    color: var(--grey);
+}
+
+.result {
+    display: inline-block;
+    color: var(--blood);
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-size: 600%;
+    margin-top: 20px;
+}
+
+.result-units {
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-size: 150%;
 }
 
 @keyframes drop {

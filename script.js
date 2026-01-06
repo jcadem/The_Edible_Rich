@@ -20,7 +20,10 @@ async function loadJSON(url) {
 
 function init() {
     populateSelect();
+    $("#your-pay").val(50000);
+    $("#reset").addClass("inactive");
     onSelect($("#rich-guy option:selected").val());
+    $("#reset").hide();
 }
 
 function populateSelect() {
@@ -42,15 +45,22 @@ function calculate() {
     ceoPayPM = ceoPay / (365*24*60);
     yourPay = $("#your-pay").val();
     requiredSecs = yourPay / ceoPayPM;
-    result = requiredSecs + " seconds";
+    result = requiredSecs;
+    units = "seconds";
     if (requiredSecs > 3600) {
-        result = (requiredSecs / 3600) + " hours";
+        result = (requiredSecs / 3600);
+        units = "hours";
     } else if (requiredSecs > 60) {
-        result = (requiredSecs / 60) + " minutes";
+        result = (requiredSecs / 60);
+        unit = "minutes";
     }
+    result = Math.round(result * 100) / 100;
     $("#interval").text(result)
+    $("#units").text(unit);
     setTimeout(setRecipe, 600);
     console.log("Updated");
+    $("#calculate").hide();
+    $("#reset").show();
 }
 
 function setRecipe() {
@@ -58,11 +68,14 @@ function setRecipe() {
     content = recipes[index].content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
     $("#recipe-title").text(recipes[index].title);
     $("#recipe-content").html(content);
-    $("#recipe").fadeIn(800);
+    $("#recipe-container").fadeIn(800);
 }
 
 function reset() {
+    $("#calculate").show();
+    $("#reset").hide();
     $("#blade").removeClass("drop");
     $("#recipe").hide();
-    $("#interval").text("--?--")
+    $("#interval").text("")
+    $("#units").text("")
 }

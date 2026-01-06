@@ -18,20 +18,26 @@
             <br><br>
             ACCUMULATES YOU ANNUAL SALARY OF
             <br><br>
-            <input type="text" id="your-pay" />
+            <input type="text" id="your-pay">
             <br><br>
             EVERY...
             <br><br>
-            <div class="highlight" id="interval">--?--</div>
-            <br><br>
             <input class="button" type="button" id="calculate" value="CALCULATE" onclick="calculate()"/>
-            <input class="small-button" type="button" id="reset" value="RESET" onclick="reset()"/>
+            <input class="button" type="button" id="reset" value="RESET" onclick="reset()"/>
         </div>
-        <div class="bucket"></div>
-        <div id="recipe">
-            <span id="recipe-title"></span>
-            <br>
-            <span id="recipe-content"></span>
+        <div class="bucket">
+            <div class="result" id="interval"></div>
+            <div class="result-units" id="units"></div>
+        </div>
+        <div id="recipe-container">
+            <div class="recipe-header">
+                The rich are edible, here's a pasta recipe to help:
+            </div>
+            <div class="recipe">
+                <span id="recipe-title"></span>
+                <br>
+                <span id="recipe-content"></span>
+            </div>
         </div>
     </body>
 </html>
