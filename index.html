@@ -8,28 +8,31 @@
         <link rel="icon" href="site.png">
     </head>
     <body onload="init()">
-        <div class="guillotine"></div>
-        <div class="blade" id="blade"></div>
-        <div class="main-box">
-            <select id="rich-guy" onchange="onSelect(this.value)">
-            </select>
-            <br><br>
-            Making <span class="highlight" id="ceo-pay">????</span> /YR
-            <br><br>
-            ACCUMULATES YOUR ANNUAL SALARY OF
-            <br><br>
-            <input type="text" id="your-pay">
-            <br><br>
-            EVERY...
-            <br><br>
-            <input class="button" type="button" id="calculate" value="CALCULATE" onclick="calculate()"/>
-            <input class="button" type="button" id="reset" value="RESET" onclick="reset()"/>
-        </div>
-        <div class="bucket">
-            <div class="result" id="interval"></div>
-            <div class="result-units" id="units"></div>
+        <div class="main-container">
+            <div class="guillotine"></div>
+            <div class="blade" id="blade"></div>
+            <div class="main-box">
+                <select id="rich-guy" onchange="onSelect(this.value)">
+                </select>
+                <br><br>
+                Making <span class="highlight" id="ceo-pay">????</span> /YR
+                <br><br>
+                ACCUMULATES YOUR ANNUAL SALARY OF
+                <br><br>
+                <input type="text" id="your-pay">
+                <br><br>
+                EVERY...
+                <br><br>
+                <input class="button" type="button" id="calculate" value="CALCULATE" onclick="calculate()"/>
+                <input class="button" type="button" id="reset" value="RESET" onclick="reset()"/>
+            </div>
+            <div class="bucket">
+                <div class="result" id="interval"></div>
+                <div class="result-units" id="units"></div>
+            </div>
         </div>
         <div id="recipe-container">
+            <div class="arrow"></div>
             <div class="recipe-header">
                 The rich are edible, here's a pasta recipe to help:
             </div>
