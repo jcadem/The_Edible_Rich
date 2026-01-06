@@ -168,6 +168,16 @@ input:hover {
     font-size: 150%;
 }
 
+.construction {
+    position: fixed;
+    top: 5px;
+    left: 50%;
+    margin-left: -285px;
+    background-image: url(construction.gif);
+    width: 573;
+    height: 18;
+}
+
 @keyframes drop {
     0% {
         top: 12px;
