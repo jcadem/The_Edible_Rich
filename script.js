@@ -41,13 +41,14 @@ function init() {
     onSelect($("#rich-guy option:selected").val());
     var incomeInput = $("#your-pay");
     incomeInput.val("$50,000");
-    incomeInput.on("input", evt => formatCurrencyInput);
+    incomeInput.on("input", evt => formatCurrencyInput(evt));
 }
 
 /*
     Handle for inputs, attempts to format as currency
 */
 function formatCurrencyInput(event) {
+    var incomeInput = $("#your-pay");
     var parsed = moneyToFloat(incomeInput.val());
     if (parsed != NaN) {
         incomeInput.val(formatter.format(parsed));
