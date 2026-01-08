@@ -4,42 +4,60 @@ const formatter = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 0,
 });
 
-var isReset = false;
-
-async function loadJSON(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log(data);
-        return data;
-    } catch (error) {
-        console.error('Error fetching JSON:', error);
-    }
-}
-
+/*
+    Parses a formatted currency value and returns the raw number
+*/
 function moneyToFloat(value) {
     return parseFloat(value.replace(/[^0-9.]/g, ''));
 }
 
-function init() {
-    populateSelect();
-    $("#your-pay").val("$50,000");
-    $("#reset").addClass("inactive");
-    onSelect($("#rich-guy option:selected").val());
-    $("#reset").hide();
-    var incomeInput = $("#your-pay");
-    incomeInput.on("input", function(evt){
-        var parsed = moneyToFloat(incomeInput.val());
-        if (parsed != NaN) {
-            incomeInput.val(formatter.format(parsed));
-        }
-        reset();
-    });
+/*
+    Converts seconds to minutes, hours, or days as appropriate
+    and rounds to two places
+*/
+function toHumanUnits(seconds) {
+    var result = seconds;
+    var units = "seconds";
+    if (seconds > (3600 * 24)) {
+        result = (seconds / (3600 * 24));
+        units = "days";
+    } else if (seconds > 3600) {
+        result = (seconds / 3600);
+        units = "hours";
+    } else if (seconds > 60) {
+        result = (seconds / 60);
+        units = "minutes";
+    }
+    result = Math.round(result * 100) / 100;
+    return { "quantity": result, "units": units};
 }
 
+/*
+    Page load handler
+*/
+function init() {
+    reset();
+    populateSelect();
+    onSelect($("#rich-guy option:selected").val());
+    var incomeInput = $("#your-pay");
+    incomeInput.val("$50,000");
+    incomeInput.on("input", evt => formatCurrencyInput);
+}
+
+/*
+    Handle for inputs, attempts to format as currency
+*/
+function formatCurrencyInput(event) {
+    var parsed = moneyToFloat(incomeInput.val());
+    if (parsed != NaN) {
+        incomeInput.val(formatter.format(parsed));
+    }
+    reset();
+}
+
+/*
+    Helper to populate select from data
+*/
 function populateSelect() {
     for (const key in richGuys) {
         $('#rich-guy').append($('<option>', {
@@ -49,41 +67,50 @@ function populateSelect() {
     }
 }
 
+/*
+    Handle for a selection from the select
+*/
 function onSelect(value) {
     $("#ceo-pay").text(formatter.format(value));
     reset();
 }
 
+/*
+    Handler for clicking the calculate button
+*/
 function calculate() {
     isReset = false;
     $("#blade").addClass("drop");
     var ceoPay = $("#rich-guy option:selected").val();
     var ceoPayPerSecond = ceoPay / (365*24*60*60);
     var yourPay = moneyToFloat($("#your-pay").val());
+    var yourLifetimePay = yourPay * 45;
     var requiredSeconds = yourPay / ceoPayPerSecond;
-    var result = requiredSeconds;
-    var units = "seconds";
-    if (requiredSeconds > (3600 * 24)) {
-        result = (requiredSeconds / (3600 * 24));
-        units = "days";
-    } else if (requiredSeconds > 3600) {
-        result = (requiredSeconds / 3600);
-        units = "hours";
-    } else if (requiredSeconds > 60) {
-        result = (requiredSeconds / 60);
-        units = "minutes";
-    }
-    var result = Math.round(result * 100) / 100;
-    setTimeout(function() {
-        $("#interval").text(result)
-        $("#units").text(units);
-    }, 500);
-    setTimeout(setRecipe, 800);
-    console.log("Updated");
+    var requiredLifetimeSeconds = yourLifetimePay / ceoPayPerSecond;
+    var result = toHumanUnits(requiredSeconds);
+    var lifetimeResult = toHumanUnits(requiredLifetimeSeconds);
+    
+    setTimeout( () => setResults(result, lifetimeResult), 500);
+    setTimeout(setRecipe, 1000);
+
     $("#calculate").hide();
     $("#reset").show();
 }
 
+/*
+    Helper to add the results to the page
+*/
+function setResults(result, lifetimeResult) {
+    $("#interval").text(result.quantity);
+    $("#units").text(result.units);
+    $("#extra").text("If you saved this salary for 45 years, they would make that amount in "
+        + lifetimeResult.quantity + " " + lifetimeResult.units);
+    $("#results-container").fadeIn(600);
+}
+
+/*
+    Helper which selects a recipe from the list and adds it to the page
+*/
 function setRecipe() {
     var index = Math.floor(Math.random() * recipes.length);
     var content = recipes[index].content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
@@ -92,14 +119,13 @@ function setRecipe() {
     $("#recipe-container").fadeIn(800);
 }
 
+/*
+    Handler for the reset button
+*/
 function reset() {
-    if (isReset == false) {
-        isReset = true;
-        $("#calculate").show();
-        $("#reset").hide();
-        $("#blade").removeClass("drop");
-        $("#recipe-container").hide();
-        $("#interval").text("")
-        $("#units").text("")
-    }
+    $("#calculate").show();
+    $("#reset").hide();
+    $("#blade").removeClass("drop");
+    $("#recipe-container").hide();
+    $("#results-container").hide();
 }

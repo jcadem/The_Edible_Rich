@@ -42,6 +42,7 @@ body {
     text-align: center;
     margin-bottom: 8px;
     margin-top: 8px;
+    font-family: sans-serif;
 }
 
 .guillotine {
@@ -81,7 +82,7 @@ body {
     }
 }
 
-.bucket {
+#results-container {
     position: relative;
     top: 525px;
     left: 0px;
@@ -89,23 +90,27 @@ body {
     margin-right: auto;
     width: 380px;
     height: 130px;
+    text-align: center;
 }
 
-.result {
+#interval {
     display: inline-block;
     color: var(--blood);
     font-weight: bold;
     width: 100%;
-    text-align: center;
     font-size: 600%;
     margin-top: 5px;
 }
 
-.result-units {
+#units {
     font-weight: bold;
     width: 100%;
-    text-align: center;
     font-size: 150%;
+}
+
+#extra {
+    margin-top: 10px;
+    font-size: 90%;
 }
 
 select {
@@ -149,6 +154,7 @@ input:hover {
 }
 
 #recipe-container {
+    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
