@@ -1,4 +1,13 @@
-const formatter = new Intl.NumberFormat('en-US', {
+/*
+    Constants
+*/
+const SECS_IN_MIN = 60;
+const SECS_IN_HOUR = SECS_IN_MIN * 60;
+const SECS_IN_DAY = SECS_IN_HOUR * 24;
+const SECS_IN_WEEK = SECS_IN_DAY * 7;
+const SECS_IN_AVG_MONTH = SECS_IN_DAY * 30.44;
+const SECS_IN_YEAR = SECS_IN_WEEK * 52;
+const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 0,
@@ -12,20 +21,29 @@ function moneyToFloat(value) {
 }
 
 /*
-    Converts seconds to minutes, hours, or days as appropriate
+    Converts seconds to minutes, hours, days, etc. as appropriate
     and rounds to two places
 */
 function toHumanUnits(seconds) {
     var result = seconds;
     var units = "seconds";
-    if (seconds > (3600 * 24)) {
-        result = (seconds / (3600 * 24));
+    if (seconds > SECS_IN_YEAR) {
+        result = seconds / SECS_IN_YEAR;
+        units = "years";
+    } else if (seconds > SECS_IN_AVG_MONTH) {
+        result = seconds / SECS_IN_AVG_MONTH;
+        units = "months (avg)"
+    } else if (seconds > SECS_IN_WEEK) {
+        result = seconds / SECS_IN_WEEK;
+        units = "weeks";
+    } else if (seconds > SECS_IN_DAY) {
+        result = seconds / SECS_IN_DAY;
         units = "days";
-    } else if (seconds > 3600) {
-        result = (seconds / 3600);
+    } else if (seconds > SECS_IN_HOUR) {
+        result = seconds / SECS_IN_HOUR;
         units = "hours";
-    } else if (seconds > 60) {
-        result = (seconds / 60);
+    } else if (seconds > SECS_IN_MIN) {
+        result = seconds / SECS_IN_MIN;
         units = "minutes";
     }
     result = Math.round(result * 100) / 100;
@@ -51,7 +69,7 @@ function formatCurrencyInput(event) {
     var incomeInput = $("#your-pay");
     var parsed = moneyToFloat(incomeInput.val());
     if (parsed != NaN) {
-        incomeInput.val(formatter.format(parsed));
+        incomeInput.val(CURRENCY_FORMATTER.format(parsed));
     }
     reset();
 }
@@ -72,7 +90,7 @@ function populateSelect() {
     Handle for a selection from the select
 */
 function onSelect(value) {
-    $("#ceo-pay").text(formatter.format(value));
+    $("#ceo-pay").text(CURRENCY_FORMATTER.format(value));
     reset();
 }
 
